@@ -1,0 +1,6 @@
+bin
+compile_flags.txt
+build.sh
+
+.vs/
+.vscode/
