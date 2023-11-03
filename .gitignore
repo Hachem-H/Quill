@@ -1,6 +1,11 @@
-bin
-compile_flags.txt
-build.sh
-
 .vs/
 .vscode/
+
+build/
+build-dir/
+
+bin/
+bin-int/
+
+compile_flags.txt
+imgui.ini

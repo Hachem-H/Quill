@@ -17,6 +17,8 @@ imgui = static_library('imgui',
 
 quillSourceFiles = [
   'src/Core/Application.cc',
+  'src/Core/Log.cc',
+  
   'src/main.cc',
 ]
 

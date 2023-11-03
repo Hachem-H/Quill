@@ -1,6 +1,5 @@
 #include "Application.hh"
-
-#include <iostream>
+#include "Log.hh"
 
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
@@ -28,8 +27,9 @@ namespace Quill
 
     void Application::Init()
     {
+        Logger::Init();
         if (!glfwInit())
-            std::cerr << "[ERR]: Could not initialize GLFW." << std::endl;
+            QUILL_ERROR("Could not initialize GLFW.");
         
         window = glfwCreateWindow(1920, 1080, "Quill", nullptr, nullptr);
         glfwMakeContextCurrent(window);
