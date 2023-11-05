@@ -1,8 +1,8 @@
 #include "Application.hh"
 #include "Log.hh"
 
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
 
 namespace Quill
 {
@@ -52,10 +52,14 @@ namespace Quill
 
         ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init("#version 130");
+
+        isRunning = true;
     }
 
     void Application::Shutdown()
     {
+        isRunning = false;
+
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
@@ -64,13 +68,33 @@ namespace Quill
         glfwTerminate();
     }
 
+    void Application::GetTime()
+    {
+        float time    = (float)glfwGetTime();
+        frameTime     = time - lastFrameTime;
+        timeStep      = std::min(frameTime, 0.0333f);
+        lastFrameTime = time;
+    }
+
+    void Application::Close()
+    {
+        isRunning = false;
+    }
+
     void Application::Run()
     {
-        while (!glfwWindowShouldClose(window))
+        while (isRunning)
         {
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
+
+            mainView.OnRender();
+
+            ImGui::Begin("Stats");
+            ImGui::Text("FPS: %d", (int)(1/frameTime));
+            ImGui::Text("dt: %f", timeStep);
+            ImGui::End();
 
             ImGui::Render();
 
@@ -90,6 +114,10 @@ namespace Quill
 
             glfwSwapBuffers(window);
             glfwPollEvents();
+            GetTime();
+
+            if (glfwWindowShouldClose(window))
+                Close();
         }
     }
 };
