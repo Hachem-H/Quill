@@ -1,17 +1,17 @@
 #pragma once
 
 #include "UIView.hh"
-#include "PreviewPane.hh"
 
 namespace Quill
 {
-    class MainView
+    class PreviewPane
         : public UI::View
     {
     public:
         void OnRender() override;
-        void MenuBarCallback();
-    private:
-        PreviewPane previewPane;
+
+        void EdgesDetectionTab();
+        void VectorizationTab();
+        void AnimationTab();
     };
 };

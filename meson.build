@@ -19,6 +19,7 @@ quillSourceFiles = [
   'src/Core/Application.cc',
   'src/Core/Log.cc',
 
+  'src/UI/PreviewPane.cc',
   'src/UI/MainView.cc',
   
   'src/main.cc',
